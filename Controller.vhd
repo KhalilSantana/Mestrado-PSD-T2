@@ -19,7 +19,6 @@ architecture moore_arch of Controller is
       S3_Date, S3_Date_wait
    );
    signal current_state, next_state : state;
-   signal o_S                       : std_logic_vector(1 downto 0) := "00";
 begin
    process (i_CLK, i_RST)
    begin

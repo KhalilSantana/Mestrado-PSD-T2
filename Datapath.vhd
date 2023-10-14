@@ -15,10 +15,19 @@ end entity;
 
 architecture rtl of Datapath is
 begin
-   o_Display <=
-      i_Hour when i_S = "00" else
-      i_Alarm when i_S = "01" else
-      i_Timer when i_S = "10" else
-      i_Date when i_S = "11" else
-      i_Hour;
+   process (i_Hour, i_Alarm, i_Timer, i_Date, i_S)
+   begin
+      case i_S is
+         when "00" =>
+            o_Display <= i_Hour;
+         when "01" =>
+            o_Display <= i_Alarm;
+         when "10" =>
+            o_Display <= i_Timer;
+         when "11" =>
+            o_Display <= i_Date;
+         when others          =>
+            o_Display <= (others => '0'); -- Default case
+      end case;
+   end process;
 end architecture;
