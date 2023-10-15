@@ -5,7 +5,7 @@ entity Circ5_tb is
 end entity;
 
 architecture tb of Circ5_tb is
-   component Circ5_mealy is
+   component Circ5 is
       port (
          i_CLK : in std_logic;
          i_RST : in std_logic;
@@ -21,7 +21,7 @@ architecture tb of Circ5_tb is
    signal w_Y   : std_logic := '0';
    -- FOR u_Circ5: Circ5 USE ENTITY WORK.Circ5(mealy_arch);
 begin
-   u_Circ5 : Circ5_mealy
+   u_Circ5 : Circ5
    port map(
       i_CLK => w_CLK,
       i_RST => w_RST,
@@ -53,6 +53,8 @@ begin
       w_B <= '1';
       wait for 2 ps;
       assert w_Y = '0' report "Error @ Charlie -> Delta" severity Error;
+      w_A <= '1';
+      w_B <= '0';
       wait for 2 ps;
       assert w_Y = '0' report "Error @ Delta -> Alfa" severity Error;
       wait for 2 ps;
