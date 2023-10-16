@@ -23,7 +23,7 @@ begin
 					else '0';
 					
 	w_NEXT(0) <= '1' when (r_STATE(2) = '0' and r_STATE(1) = '1' and r_STATE(0) = '0')
-							or  (r_STATE(2) = '0' and r_STATE(1) = '0' and i_A = '0')
+							or  (r_STATE(2) = '0' and r_STATE(0) = '0' and i_A = '1')
 							else '0';
 
 	w_NEXT(1) <= '1' when (r_STATE(2) = '0' and r_STATE(1) = '1' and r_STATE(0) = '0')
