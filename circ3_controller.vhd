@@ -17,34 +17,25 @@ begin
 
 	r_STATE <= i_S;
 	
-  -- Next State Function
-  process (w_NEXT, r_State, i_A)
-  begin
-    case r_STATE is
-      when "000" => if (i_A = '0') then
-        w_NEXT <= "000";
-      else
-        w_NEXT <= "001";
-      end if;
-      when "001"   => w_NEXT   <= "010";
-      when "010"   => w_NEXT   <= "011";
-      when "011"   => w_NEXT   <= "100";
-      when "100"   => w_NEXT   <= "000";
-      when others => w_NEXT <= "000";
-    end case;
-  end process;
-  
-	process ( w_R, r_STATE)
-	begin
-	if r_STATE = "001" or r_STATE = "010" or r_STATE = "100" then
-		w_R <= '1' ;
-	else
-		w_R <= '0';
-	end if;
-	end process;
-  
+	o_R <= '1' when (r_STATE(2) = '1' and r_STATE(1) = '0' and r_STATE(0) = '0')
+					or  (r_STATE(2) = '0' and r_STATE(1) = '1' and r_STATE(0) = '0')
+					or  (r_STATE(2) = '0' and r_STATE(1) = '0' and r_STATE(0) = '1')
+					else '0';
+					
+	w_NEXT(0) <= '1' when (r_STATE(2) = '0' and r_STATE(1) = '1' and r_STATE(0) = '0')
+							or  (r_STATE(2) = '0' and r_STATE(1) = '0' and i_A = '0')
+							else '0';
+
+	w_NEXT(1) <= '1' when (r_STATE(2) = '0' and r_STATE(1) = '1' and r_STATE(0) = '0')
+							or  (r_STATE(2) = '0' and r_STATE(1) = '0' and r_STATE(0) = '1')
+							else '0';
+							
+	w_NEXT(2) <= '1' when (r_STATE(2) = '0' and r_STATE(1) = '1' and r_STATE(0) = '1')
+
+							else '0';	
+
+
   -- Output Function
-  o_R <= w_R;
   o_N <= w_Next;
   
 end arch_1;
